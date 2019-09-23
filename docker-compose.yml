@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  caddy:
+    networks:
+      - caddy_overlay
+    image: abiosoft/caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CADDYPATH=/etc/caddycerts
+      - ACME_AGREE=true
+    volumes:
+      - "/mnt/caddy/certs:/etc/caddycerts"
+      - "/mnt/caddy/Caddyfile:/etc/Caddyfile"
+  service1:
+    networks:
+      - caddy_overlay
+    image: service1:latest
+    ports:
+      - "5001:5000"
+  service2:
+    networks:
+      - caddy_overlay
+    image: service2:latest
+    ports:
+      - "5002:5000"
