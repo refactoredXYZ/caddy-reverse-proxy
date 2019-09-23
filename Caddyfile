@@ -1,0 +1,15 @@
+https://projects.developmentphase.com {
+    proxy /service1 http://service1:5001 {
+        transparent
+    }
+    
+    proxy /service2 http://service2:5002 {
+        transparent
+    }
+    tls cert@refactored.xyz
+
+    log stdout
+    errors stderr
+
+    gzip
+}
